@@ -47,10 +47,13 @@
 
     <script>
         const apikey = "b0812f9ce308170599e5163d9369fbba";
-        const apiurl = "https://api.openweathermap.org/data/2.5/weather?units=metric&q=islamabad";
+        const apiurl = "https://api.openweathermap.org/data/2.5/weather?units=metric&q=";
 
-        async function checkWeather() {
-            const response = await fetch(apiurl + `&appid=${apikey}`);
+        const searchBox = document.querySelector(".search input");
+        const searchBtn = document.querySelector(".search button");
+
+        async function checkWeather(city) {
+            const response = await fetch(apiurl + city + `&appid=${apikey}`);
             var data = await response.json();
 
             console.log(data);
@@ -61,7 +64,11 @@
             document.querySelector(".wind").innerHTML = data.wind.speed + " KM/h";
 
         }
-        checkWeather();
+
+        searchBtn.addEventListener("click", ()=>{
+            checkWeather(searchBox.value);
+        })
+        
     </script>
 </body>
 
